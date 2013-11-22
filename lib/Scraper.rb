@@ -11,36 +11,22 @@ class Scraper
 		@html =	Nokogiri::HTML(download) #HTML method translate the file into HTML to be used in Ruby. Makes the TempFile useful. Returns it in nicer format. @html is now a nokogiri object
 	end
 
-	def get_pokemon_name		
-		all_the_h3s = @html.search("h3").to_s.gsub(" ", "*").gsub("</h3>", "<h3>").gsub("<h3>", " ").split
-    	all_the_h3s.collect do |name|
-      		name.gsub("*", " ")
-    	end
+	def get_pokemon_name	
+		pokemon_html = html.search("tr")
+		pokemon_name_array = []
+		pokemon_html.each do |index|
+			pokemon_name = index.children.children.children[1]
+			pokemon_name_array << pokemon_name.text unless pokemon_name.nil?
+			#name = pokemon_html[index].children.children.children[1].text
+			#pokemon name start at index 3
+			#debugger
+		end
+		pokemon_name_array
 	end
-
-	# def get_blog
-	# 	#href attribute <html element attributes (=)
-	# 	blog_url = html.search("ul.social a.blog")
-	# 	blog_url_array = []
-		
-	# 	blog_url.each do |index|
-	# 		blog_url_array << index["href"]
-	# 	end
-	# 	blog_url_array
-
-	# end
-
-	# def get_twitter
-	# 	twitter_url = html.search("ul.social")
-	# 	all_the_twitters = twitter_url.text.gsub(/\s+/, " ").strip.scan(/@\w+\b/)
-	# end
 
 end
 
-my_scraper = Scraper.new("http://bulbapedia.bulbagarden.net/wiki/Main_Page")
-
-puts my_scraper.get_name
-
+#my_scraper = Scraper.new("http://bulbapedia.bulbagarden.net/wiki/Main_Page")
 
 #class = .intro
 #id = #unique
