@@ -18,7 +18,7 @@ class Scraper
 			pokemon_name = index.children.children.children[1]
 			pokemon_name_array << pokemon_name.text unless pokemon_name.nil?
 			#name = pokemon_html[index].children.children.children[1].text
-			#pokemon name start at index 3
+			#pokemon name start at index 2
 			#debugger
 		end
 		pokemon_name_array
